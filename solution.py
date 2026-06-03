@@ -25,7 +25,7 @@ def main() -> None:
     model = AutoModelForSeq2SeqLM.from_pretrained(
         MODEL_DIR,
         torch_dtype=torch.bfloat16,
-        device_map="cuda" if torch.cuda.is_available() else "cpu",
+        device_map="auto" if torch.cuda.is_available() else None,
     )
     model.eval()
 
