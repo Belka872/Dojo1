@@ -4,7 +4,7 @@ from huggingface_hub import snapshot_download
 
 
 MODEL_ID = "facebook/nllb-200-distilled-600M"
-WEIGHTS_DIR = Path("weights")
+WEIGHTS_DIR = Path("base_model/nllb-200-distilled-600M")
 
 
 def main() -> None:
