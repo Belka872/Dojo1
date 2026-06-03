@@ -7,7 +7,7 @@ from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 MODEL_DIR = "./weights"
 SRC_LANG = "rus_Cyrl"
-TGT_LANG = "abk_Cyrl"
+FORCED_BOS_LANG = "rus_Cyrl"
 MAX_NEW_TOKENS = 128
 BATCH_SIZE = 16
 
@@ -19,7 +19,7 @@ def main() -> None:
     tokenizer = AutoTokenizer.from_pretrained(
         MODEL_DIR,
         src_lang=SRC_LANG,
-        tgt_lang=TGT_LANG,
+        tgt_lang=FORCED_BOS_LANG,
         use_fast=False,
     )
     model = AutoModelForSeq2SeqLM.from_pretrained(
@@ -29,9 +29,9 @@ def main() -> None:
     )
     model.eval()
 
-    forced_bos_token_id = tokenizer.convert_tokens_to_ids(TGT_LANG)
+    forced_bos_token_id = tokenizer.convert_tokens_to_ids(FORCED_BOS_LANG)
     if forced_bos_token_id == tokenizer.unk_token_id:
-        raise RuntimeError(f"Target language token {TGT_LANG!r} is missing in tokenizer")
+        raise RuntimeError(f"Language token {FORCED_BOS_LANG!r} is missing in tokenizer")
 
     results = []
 
